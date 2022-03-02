@@ -12,9 +12,9 @@
     <p>{{ env('EXAMPLE_APP_KEY')}}</p>
     <p>{{ config('example.key')}}</p>
 
-    <!--
+
     <?php
-        /*
+
         if (App::environment('local')) {
             // 環境がlocal(開発）の場合
             echo "開発環境です";
@@ -25,8 +25,8 @@
             // その他の環境
             echo "その他の環境です";
         }
-         */
+
     ?>
-    -->
+
 </body>
 </html>
