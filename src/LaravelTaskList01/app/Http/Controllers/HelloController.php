@@ -9,6 +9,10 @@ class HelloController extends Controller
     // hello world page
     public function index()
     {
-        return view('hello');
+        // エラーを出す場合
+        return view('hello',["something"=>""]);
+
+        // エラーを出さない場合
+        // return view('hello',["something"=>"FBK"]);
     }
 }
