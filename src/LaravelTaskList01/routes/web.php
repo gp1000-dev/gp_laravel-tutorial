@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HelloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* Laravel welcome Page */
 Route::get('/', function () {
     return view('welcome');
 });
+/* hello world page */
+Route::get('/hello', [HelloController::class,"index"]);
