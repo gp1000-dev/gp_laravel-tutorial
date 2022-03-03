@@ -37,8 +37,8 @@
                         * ルート関数：route('ルート名', [ルートURLのうち変数になっている部分（$folder->id）])
                         -->
                         <!-- 入門3：フォルダ名を選択表示（水色）にする のテストコード -->
-                        <a href="{{ route('tasks.index', ['id' => $folder->id]) }}" class="list-group-item">
-                            <!-- フォルダのタイトルを表示する -->
+                        <a href="{{ route('tasks.index', ['id' => $folder->id]) }}" class="list-group-item {{ $current_folder_id === $folder->id ? 'active' : '' }}">
+                        <!-- フォルダのタイトルを表示する -->
                             {{ $folder->title }}
                         </a>
                         @endforeach
