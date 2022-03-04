@@ -23,3 +23,6 @@ Route::get('/', function () {
 Route::get('/hello', [HelloController::class,"index"]);
 /* index page */
 Route::get("/folders/{id}/tasks", [TaskController::class,"index"])->name("tasks.index");
+/* folder new create pages */
+Route::get('/folders/create', [FolderController::class,"showCreateForm"])->name('folders.create');
+Route::post('/folders/create', [FolderController::class,"create"]);
