@@ -26,9 +26,8 @@ class TaskController extends Controller
         $current_folder = Folder::find($id);
 
         // ユーザーによって選択されたフォルダに紐づくタスクを取得する
-        // where(カラム名,カラムに対して比較する値)：SQLクエリにwhere節を追加する関数 ※こちらは省略形です
         // get()：値を取得する関数（この場合はwhere関数で生成されたSQL文を発行して値を取得する）
-        $tasks = Task::where('folder_id', $current_folder->id)->get();
+        $tasks = $current_folder->tasks()->get();
 
         // indexテンプレートにFolderモデルの全てのデータを渡した結果を返す
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
