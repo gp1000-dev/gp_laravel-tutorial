@@ -29,10 +29,22 @@ class CreateFolder extends FormRequest
     {
         return [
             // タイトルの入力欄を入力必須に定義する
-            // 'title' => 'required',
+            'title' => 'required',
 
             // タイトルの入力欄を入力必須の最大文字数20文字に定義する
-            'title' => 'required|max:20',
+            // 'title' => 'required|max:20',
+        ];
+    }
+
+    /**
+     * リクエストのnameなどの値を再定義する関数
+     *
+     * @return string
+     */
+    public function attributes()
+    {
+        return [
+            'title' => 'フォルダ名',
         ];
     }
 }
