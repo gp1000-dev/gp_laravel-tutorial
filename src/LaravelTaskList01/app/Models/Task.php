@@ -15,10 +15,18 @@ class Task extends Model
      * const：定数
      */
     /* 入門4：状態の名前を表示する のテストコード */
+    /*
     const STATUS = [
         1 => [ 'label' => '未着手' ],
         2 => [ 'label' => '着手中' ],
         3 => [ 'label' => '完了' ],
+    ];
+    */
+    /* 入門4：状態を色分けする のテストコード */
+    const STATUS = [
+        1 => [ 'label' => '未着手', 'class' => 'label-danger' ],
+        2 => [ 'label' => '着手中', 'class' => 'label-info' ],
+        3 => [ 'label' => '完了', 'class' => '' ],
     ];
 
     /**
@@ -37,5 +45,23 @@ class Task extends Model
         }
         // STATUSの値（['label']）を返す
         return self::STATUS[$status]['label'];
+    }
+
+    /**
+     * 状態を表すHTMLクラスのアクセサメソッド
+     * @return string
+     */
+    public function getStatusClassAttribute()
+    {
+        // ステータス（状態）カラムの値を取得する
+        $status = $this->attributes['status'];
+
+        // STATUSに定義されていない場合
+        if (!isset(self::STATUS[$status])) {
+            // 空文字を返す
+            return '';
+        }
+        // STATUSの値（['class']）を返す
+        return self::STATUS[$status]['class'];
     }
 }
