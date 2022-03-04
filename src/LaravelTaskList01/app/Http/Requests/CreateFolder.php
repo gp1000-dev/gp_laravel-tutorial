@@ -28,11 +28,8 @@ class CreateFolder extends FormRequest
     public function rules()
     {
         return [
-            // タイトルの入力欄を入力必須に定義する
-            'title' => 'required',
-
             // タイトルの入力欄を入力必須の最大文字数20文字に定義する
-            // 'title' => 'required|max:20',
+            'title' => 'required|max:20',
         ];
     }
 
