@@ -79,7 +79,7 @@
                                     <td>{{ $task->title }}</td>
                                     <!-- タスクの状態を表示する -->
                                     <td>
-                                        <span class="label">{{ $task->status }}</span>
+                                    <span class="label">{{ $task->status_label }}</span>
                                     </td>
                                     <!-- タスクの期限を表示する -->
                                     <td>{{ $task->due_date }}</td>
