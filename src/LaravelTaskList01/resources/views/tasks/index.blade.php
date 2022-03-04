@@ -46,7 +46,50 @@
                 </nav>
             </div>
             <div class="column col-md-8">
-            <!-- ここにタスクが表示される -->
+                <!-- ここにタスクが表示される -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">タスク</div>
+                    <div class="panel-body">
+                        <div class="text-right">
+                            <a href="#" class="btn btn-default btn-block">
+                                タスクを追加する
+                            </a>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>タイトル</th>
+                                <th>状態</th>
+                                <th>期限</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP記述部分：テンプレとでは「＠」を用いて記述します -->
+                            <!-- 入門4：Blade テンプレートエンジンのテストコード -->
+                            <!--
+                            * 【task一覧セクション】
+                            * foreach の中でTaskControllerから渡されたデータ $tasks を参照する
+                            * $tasks をループして値を全て表示する
+                            -->
+                            @foreach($tasks as $task)
+                                <tr>
+                                    <!-- タスクのタイトルを表示する -->
+                                    <td>{{ $task->title }}</td>
+                                    <!-- タスクの状態を表示する -->
+                                    <td>
+                                        <span class="label">{{ $task->status }}</span>
+                                    </td>
+                                    <!-- タスクの期限を表示する -->
+                                    <td>{{ $task->due_date }}</td>
+                                    <!-- 編集のリンクを表示する -->
+                                    <td><a href="#">編集</a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
