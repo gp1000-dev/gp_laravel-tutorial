@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Folder;
-/* use App\Http\Requests\CreateFolder; */
+use App\Http\Requests\CreateFolder;
 
 class FolderController extends Controller
 {
@@ -23,10 +23,10 @@ class FolderController extends Controller
     // 入門5：コントローラー のテストコード
     /**
      *  Folderを新規作成してDBに書き込む処理のコントローラー
-     *  @param Request $request （リクエストクラスの$request）
+     *  @param CreateFolder $request
      *  @return string
      */
-    public function create(Request $request)
+    public function create(CreateFolder $request)
     {
         /* 新規作成のフォルダー名（タイトル）をDBに書き込む処理 */
         // フォルダモデルのインスタンスを作成する
