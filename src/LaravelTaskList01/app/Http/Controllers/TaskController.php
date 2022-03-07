@@ -113,4 +113,39 @@ class TaskController extends Controller
             'task' => $task,
         ]);
     }
+
+    /**
+     *  タスクを編集（更新）してDBに書き込む処理のコントローラー
+     *  GET /folders/{id}/tasks/{task_id}/edit
+     *  @param int $id
+     *  @param int $task_id
+     *  @param EditTask $request
+     *  @return string
+     */
+    public function edit(int $id, int $task_id, EditTask $request)
+    {
+        // ユーザーによって選択されたタスクを取得する
+        // find()：一行分のデータを取得する関数
+        $task = Task::find($task_id);
+
+        /* 編集（更新）のタスクをDBに上書きする処理 */
+        // タイトルに入力値を代入する
+        $task->title = $request->title;
+        // 状態に入力値を代入する
+        $task->status = $request->status;
+        // 期限に入力値を代入する
+        $task->due_date = $request->due_date;
+        // インスタンスの状態をデータベースに書き込む
+        $task->save();
+
+        /* 上記の処理実行後のリダイレクト */
+        // リダイレクト：別URLへの転送（リクエストされたURLとは別のURLに直ちに再リクエストさせます）
+        // route('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
+        // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
+        // redirect():リダイレクトを実施する関数
+        // route():ルートPathを指定する関数
+        return redirect()->route('tasks.index', [
+            'id' => $task->folder_id,
+        ]);
+    }
 }
