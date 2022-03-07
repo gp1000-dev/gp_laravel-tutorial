@@ -11,7 +11,7 @@ class TaskController extends Controller
     // 入門3：コントローラーのテストコード
     /**
      *  Folderモデルの全てのデータをDBから取得するコントローラー
-     *
+     *  GET /folders/{id}/tasks
      *  @param int $id
      *  @return string
      */
@@ -39,6 +39,23 @@ class TaskController extends Controller
             'current_folder_id' => $current_folder->id,
             // 'tasks'に$tasksを代入する
             'tasks' => $tasks
+        ]);
+    }
+
+    // 入門6：コントローラー のテストコード
+    /**
+     *  フォルダIDを取得するためのコントローラー
+     *  GET /folders/{id}/tasks/create
+     *  @param int $id
+     *  @return \Illuminate\View\View
+     */
+    public function showCreateForm(int $id)
+    {
+        // createテンプレートにフォルダーIDを渡した結果を返す
+        // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
+        // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
+        return view('tasks/create', [
+            'folder_id' => $id
         ]);
     }
 }
