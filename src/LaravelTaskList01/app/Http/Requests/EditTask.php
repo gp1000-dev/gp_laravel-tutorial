@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Task;
 use Illuminate\Validation\Rule;
 
-class EditTask extends FormRequest
+class EditTask extends CreateTask
 {
     /**
      * Get the validation rules that apply to the request.
