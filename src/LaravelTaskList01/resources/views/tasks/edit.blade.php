@@ -10,10 +10,7 @@
 *   用途：javascriptライブラリー「flatpickr 」のスタイルシートを指定
 -->
 @section('styles')
-    <!-- javascriptライブラリー「flatpickr 」：デフォルトスタイルシート -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- javascriptライブラリー「flatpickr 」：ブルーテーマの追加スタイルシート -->
-    <link rel="stylesheet" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    @include('share.flatpickr.styles')
 @endsection
 
 <!--
@@ -44,7 +41,6 @@
                             <div class="form-group">
                                 <label for="title">タイトル</label>
                                 <!--
-                                *   入門7：テンプレートのテストコード
                                 *   value：直前の値または $task->title の値を取得する
                                 *   old：セッション（直前の）値を取得する関数
                                 -->
@@ -58,7 +54,6 @@
                                     <!-- Task::STATUS をループしてoptionで状態を全て表示する -->
                                     @foreach(\App\Models\Task::STATUS as $key => $val)
                                         <!--
-                                        *   入門7：テンプレートのテストコード
                                         *   直前に取得または選択した値をセッション値として入力欄に表示するようにする
                                         *   value：old関数の値と選択した状態（'selected'）が一致した場合に実行する
                                         *   old：第二引数のある場合は セッション（直前の）値または第二引数の指定した値を取得する
@@ -72,7 +67,6 @@
                             <div class="form-group">
                                 <label for="due_date">期限</label>
                                 <!--
-                                *   入門7：テンプレートのテストコード
                                 *   value：直前の値または $task->formatted_due_date の値を取得する
                                 *   old：セッション（直前の）値を取得する関数
                                 -->
@@ -96,19 +90,5 @@
 *   用途：javascriptライブラリー「flatpickr 」のインポートと日本語化並びにcodeの記述
 -->
 @section('scripts')
-<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
-<!-- javascriptライブラリー「flatpickr 」：日本語化のための追加スクリプト -->
-<script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
-<!-- flatpickrのcode記述部分 -->
-<script>
-    /* flatpickr(指定要素名, オプション) */
-    flatpickr(document.getElementById('due_date'), {
-        /* 言語設定：日本語を指定 */
-        locale: 'ja',
-        /* 日付形式：年月日を指定 */
-        dateFormat: "Y/m/d",
-        /* 開始日設定（選択日付の最小値）：現在日より過去日付を制限するに指定 */
-        minDate: new Date()
-    });
-</script>
+    @include('share.flatpickr.scripts')
 @endsection
