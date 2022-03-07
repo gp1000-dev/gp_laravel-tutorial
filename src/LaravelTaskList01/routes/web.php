@@ -27,3 +27,6 @@ Route::get("/folders/{id}/tasks", [TaskController::class,"index"])->name("tasks.
 /* folder new create pages */
 Route::get('/folders/create', [FolderController::class,"showCreateForm"])->name('folders.create');
 Route::post('/folders/create', [FolderController::class,"create"]);
+/* tasks new create pages */
+Route::get('/folders/{id}/tasks/create', [TaskController::class,"showCreateForm"])->name('tasks.create');
+Route::post('/folders/{id}/tasks/create', [TaskController::class,"create"]);
