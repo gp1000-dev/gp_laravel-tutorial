@@ -49,6 +49,7 @@
                     <div class="panel-heading">タスク</div>
                     <div class="panel-body">
                         <div class="text-right">
+                        <!-- タスクを追加する のリンクを変更する -->
                         <a href="{{ route('tasks.create', ['id' => $current_folder_id]) }}" class="btn btn-default btn-block">
                             タスクを追加する
                         </a>
