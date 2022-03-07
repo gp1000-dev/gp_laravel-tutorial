@@ -12,7 +12,7 @@ class TaskController extends Controller
      *  Folderモデルの全てのデータをDBから取得するコントローラー
      *  GET /folders/{id}/tasks
      *  @param int $id
-     *  @return string
+     *  @return \Illuminate\View\View
      */
     public function index(int $id)
     {
@@ -59,10 +59,10 @@ class TaskController extends Controller
 
     /**
      *  タスクを新規作成してDBに書き込む処理のコントローラー
-     *
+     *  GET /folders/{id}/tasks/create
      *  @param int $id
      *  @param CreateTask $request
-     *  @return string
+     *  @return \Illuminate\View\View
      */
     public function create(int $id, CreateTask $request)
     {
@@ -88,6 +88,27 @@ class TaskController extends Controller
         // route():ルートPathを指定する関数
         return redirect()->route('tasks.index', [
             'id' => $current_folder->id,
+        ]);
+    }
+
+    /**
+     *  タスクIDを取得するためのコントローラー
+     *  GET /folders/{id}/tasks/{task_id}/edit
+     *  @param int $id
+     *  @param int $task_id
+     *  @return \Illuminate\View\View
+     */
+    public function showEditForm(int $id, int $task_id)
+    {
+        // ユーザーによって選択されたタスクを取得する
+        // find()：一行分のデータを取得する関数
+        $task = Task::find($task_id);
+
+        // createテンプレートにフォルダーIDを渡した結果を返す
+        // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
+        // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
+        return view('tasks/edit', [
+            'task' => $task,
         ]);
     }
 }
