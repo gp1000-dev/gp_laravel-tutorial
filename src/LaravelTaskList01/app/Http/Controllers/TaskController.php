@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Folder;
 use App\Http\Requests\CreateTask;
+use App\Http\Requests\EditTask;
+
 class TaskController extends Controller
 {
     /**
