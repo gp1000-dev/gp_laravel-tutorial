@@ -10,7 +10,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+
+    // テーブル名を明示的に指定する
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +46,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+    * ユーザークラスの関係性を辿ってフォルダークラスのリストを取得するユーザー関数
+    *
+    * @return string
+    */
+    public function folders()
+    {
+        // ユーザークラスのタスククラスのリストを取得して返す
+        // hasMany()：テーブルの関係性を辿ってインスタンスから紐づく情報を取得する関数
+        // hasMany(モデル名, 関連するテーブルが持つ外部キーカラム名, hasManyが定義された外部キーに紐づけられたカラム)
+        return $this->hasMany('App\Models\Folder');
+    }
 }
