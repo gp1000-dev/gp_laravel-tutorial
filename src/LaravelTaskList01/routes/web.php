@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,5 @@ Route::get('/folders/{id}/tasks/{task_id}/edit', [TaskController::class,"showEdi
 Route::post('/folders/{id}/tasks/{task_id}/edit', [TaskController::class,"edit"]);
 /* home page */
 Route::get('/', [HomeController::class,"index"])->name('home');
-
+/* certification pages （会員登録・ログイン・ログアウト・パスワード再設定など） */
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
