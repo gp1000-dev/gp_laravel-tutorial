@@ -36,3 +36,7 @@ Route::get('/folders/{id}/tasks/{task_id}/edit', [TaskController::class,"showEdi
 Route::post('/folders/{id}/tasks/{task_id}/edit', [TaskController::class,"edit"]);
 /* home page */
 Route::get('/', [HomeController::class,"index"])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
