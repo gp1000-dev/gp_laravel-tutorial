@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Folder;
 use App\Http\Requests\CreateTask;
 use App\Http\Requests\EditTask;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -18,9 +19,8 @@ class TaskController extends Controller
      */
     public function index(int $id)
     {
-        // Folderモデルの全てのデータをDBから取得する
-        // all()：全てのデータを取得する関数
-        $folders = Folder::all();
+        // （ログイン済み）ユーザーのフォルダを取得する
+        $folders = auth()->user()->folders()->get();
 
         // ユーザーによって選択されたフォルダを取得する
         // find()：一行分のデータを取得する関数
