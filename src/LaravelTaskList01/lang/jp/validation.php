@@ -31,7 +31,8 @@ return [
     'string' => 'The :attribute must be between :min and :max characters.',
 ],
 'boolean' => 'The :attribute field must be true or false.',
-'confirmed' => 'The :attribute confirmation does not match.',
+/* 'confirmed' => 'The :attribute confirmation does not match.', */
+'confirmed' => ':attribute が確認欄と一致していません。',
 'current_password' => 'The password is incorrect.',
 /* 'date' => 'The :attribute is not a valid date.', */
 'date' => ':attribute には日付を入力してください。',
@@ -44,7 +45,8 @@ return [
 'digits_between' => 'The :attribute must be between :min and :max digits.',
 'dimensions' => 'The :attribute has invalid image dimensions.',
 'distinct' => 'The :attribute field has a duplicate value.',
-'email' => 'The :attribute must be a valid email address.',
+/* 'email' => 'The :attribute must be a valid email address.', */
+'email' => ':attribute には有効な形式のメールアドレスを入力してください。',
 'ends_with' => 'The :attribute must end with one of the following: :values.',
 'enum' => 'The selected :attribute is invalid.',
 'exists' => 'The selected :attribute is invalid.',
@@ -96,7 +98,8 @@ return [
     'array' => 'The :attribute must have at least :min items.',
     'file' => 'The :attribute must be at least :min kilobytes.',
     'numeric' => 'The :attribute must be at least :min.',
-    'string' => 'The :attribute must be at least :min characters.',
+    /* 'string' => 'The :attribute must be at least :min characters.', */
+    'string' => ':attribute は:min文字以上で入力してください。',
 ],
 'multiple_of' => 'The :attribute must be a multiple of :value.',
 'not_in' => 'The selected :attribute is invalid.',
@@ -126,9 +129,11 @@ return [
     'string' => 'The :attribute must be :size characters.',
 ],
 'starts_with' => 'The :attribute must start with one of the following: :values.',
-'string' => 'The :attribute must be a string.',
+/* 'string' => 'The :attribute must be a string.', */
+'string' => ':attribute には文字を入力してください。',
 'timezone' => 'The :attribute must be a valid timezone.',
-'unique' => 'The :attribute has already been taken.',
+/* 'unique' => 'The :attribute has already been taken.', */
+'unique' => '入力いただいた :attribute はすでに使用されています。',
 'uploaded' => 'The :attribute failed to upload.',
 'url' => 'The :attribute must be a valid URL.',
 'uuid' => 'The :attribute must be a valid UUID.',
