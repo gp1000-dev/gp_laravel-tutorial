@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -16,13 +16,34 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     *  Show the application dashboard.
+     *  ホームページを表示するコントローラー
+     *  GET /
+     *  @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('home');
+        // ログインユーザーを取得する
+        $user = Auth::user();
+
+        // ログインユーザーに紐づくフォルダを一つ取得する
+        $folder = $user->folders()->first();
+
+        // まだ一つもフォルダを作っていなければホームページをレスポンスする
+        if (is_null($folder)) {
+            // ホーム画面のPathを渡した結果を返す
+            // view('遷移先のbladeファイル名');
+            return view('home');
+        }
+
+        // フォルダがあればそのフォルダのフォルダ＆タスク一覧にリダイレクトする
+        // indexテンプレートにフォルダーIDを渡した結果を返す
+        // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
+        // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
+        return redirect()->route('tasks.index', [
+            'id' => $folder->id,
+        ]);
     }
 }
