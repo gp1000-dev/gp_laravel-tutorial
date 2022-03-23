@@ -64,6 +64,11 @@ services: # サービス
     # コンテナ起動後のカレントディレクトリを設定
     working_dir: /var/www # /var/wwwを指定
 
+  mail: # (任意の文字列) サービスの名称：mail
+    image: mailhog/mailhog # 用いるdockerイメージの指定
+    ports: # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
+      - 8025:8025
+
 # サービスレベルで名前付きボリュームを命名する
 volumes:
   db_data_taskList01: # db のvolumes で名前付きボリュームにした「db_data_taskList01:/var/lib/mysql」を db_data_taskList01 に命名する
