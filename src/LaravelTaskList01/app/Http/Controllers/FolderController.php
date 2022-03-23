@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Folder;
 use App\Http\Requests\CreateFolder;
+use Illuminate\Support\Facades\Auth;
 
 class FolderController extends Controller
 {
-    // 入門5：コントローラー のテストコード
     /**
      *  Folder新規作成画面を表示するコントローラー
      *  @return string
@@ -20,7 +20,6 @@ class FolderController extends Controller
         return view('folders/create');
     }
 
-    // 入門5：コントローラー のテストコード
     /**
      *  Folderを新規作成してDBに書き込む処理のコントローラー
      *  @param CreateFolder $request
@@ -33,8 +32,8 @@ class FolderController extends Controller
         $folder = new Folder();
         // タイトルに入力値を代入する
         $folder->title = $request->title;
-        // インスタンスの状態をデータベースに書き込む
-        $folder->save();
+        // （ログイン）ユーザーに紐づけて保存する
+        Auth::user()->folders()->save($folder);
 
         /* 上記の処理実行後のリダイレクト */
         // リダイレクト：別URLへの転送（リクエストされたURLとは別のURLに直ちに再リクエストさせます）
