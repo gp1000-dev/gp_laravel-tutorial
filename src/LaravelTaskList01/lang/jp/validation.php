@@ -167,5 +167,7 @@ return [
 */
 
 'attributes' => [],
-
+    'email' => 'メールアドレス',
+    'password' => 'パスワード',
+    'token' => 'トークン',
 ];
