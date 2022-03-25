@@ -21,6 +21,18 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <!-- エラーメッセージを表示する -->
+                    <!-- エラーがある場合はIF文の処理を実行する -->
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                        <ul>
+                            <!-- エラーメッセージをループで全て列挙して表示する -->
+                            @foreach($errors->all() as $message)
+                                <li>{{ $message }}</li>
+                            @endforeach
+                        </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('password.email') }}" method="POST">
                         <!-- セキュリティ対策：@csrf は、CSRFトークンを含んだ input 要素を出力します -->
                         @csrf
