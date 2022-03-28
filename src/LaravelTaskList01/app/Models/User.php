@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Mail\ResetPassword;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -58,5 +60,19 @@ class User extends Authenticatable
         // hasMany()：テーブルの関係性を辿ってインスタンスから紐づく情報を取得する関数
         // hasMany(モデル名, 関連するテーブルが持つ外部キーカラム名, hasManyが定義された外部キーに紐づけられたカラム)
         return $this->hasMany('App\Models\Folder');
+    }
+
+    /**
+     * パスワード再設定メールを送信するユーザー関数
+     *
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        // 受取人にユーザーを指定して、トークンを含むリセットパスワードを送信する
+        // Mail::to($this = $user)で受取人を指定する
+        // send()でメールを送信する
+        Mail::to($this)->send(new ResetPassword($token));
     }
 }
