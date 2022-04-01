@@ -34,7 +34,8 @@ Route::group(['middleware' => 'auth'], function() {
     /* home page */
     Route::get('/', [HomeController::class,"index"])->name('home');
     /* index page */
-    Route::get("/folders/{id}/tasks", [TaskController::class,"index"])->name("tasks.index");
+    // {id}から{folder}に変更する
+    Route::get("/folders/{folder}/tasks", [TaskController::class,"index"])->name("tasks.index");
     /* folder new create pages */
     Route::get('/folders/create', [FolderController::class,"showCreateForm"])->name('folders.create');
     Route::post('/folders/create', [FolderController::class,"create"]);
