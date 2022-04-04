@@ -14,25 +14,17 @@ class TaskController extends Controller
     /**
      *  Folderモデルの全てのデータをDBから取得するコントローラー
      *  GET /folders/{id}/tasks
-     *  @param int $id
+     *  @param Folder $folder
      *  @return \Illuminate\View\View
      */
-    public function index(int $id)
+    public function index(Folder $folder)
     {
         // （ログイン済み）ユーザーのフォルダを取得する
         $folders = auth()->user()->folders()->get();
 
-        // ユーザーによって選択されたフォルダを取得する
-        // find()：一行分のデータを取得する関数
-        $current_folder = Folder::find($id);
-
-        if (is_null($current_folder)) {
-            abort(404);
-        }
-
         // ユーザーによって選択されたフォルダに紐づくタスクを取得する
         // get()：値を取得する関数（この場合はwhere関数で生成されたSQL文を発行して値を取得する）
-        $tasks = $current_folder->tasks()->get();
+        $tasks = $folder->tasks()->get();
 
         // indexテンプレートにFolderモデルの全てのデータを渡した結果を返す
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
@@ -40,8 +32,8 @@ class TaskController extends Controller
         return view('tasks/index', [
             // 'folders'に$foldersの値を代入する
             'folders' => $folders,
-            // ユーザーによって選択された"current_folder_id"に$idの値を代入する
-            'current_folder_id' => $current_folder->id,
+            // ユーザーによって選択された"$folder"に$idの値を代入する
+            'current_folder_id' => $folder->id,
             // 'tasks'に$tasksを代入する
             'tasks' => $tasks
         ]);
