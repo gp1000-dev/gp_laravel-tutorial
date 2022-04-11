@@ -18,12 +18,14 @@ class HomeController extends Controller
 
 
     /**
+     *  ホームページ
      *  Show the application dashboard.
      *  ホームページを表示するコントローラー
      *  GET /
+     *  @param Folder $folder
      *  @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Folder $folder)
     {
         // ログインユーザーを取得する
         $user = Auth::user();
@@ -43,7 +45,7 @@ class HomeController extends Controller
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
         // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
         return redirect()->route('tasks.index', [
-            'id' => $folder->id,
+            'folder' => $folder->id,
         ]);
     }
 }
