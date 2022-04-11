@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
     /**
+     *  タスク一覧
      *  Folderモデルの全てのデータをDBから取得するコントローラー
      *  GET /folders/{id}/tasks
      *  @param Folder $folder
@@ -40,34 +41,32 @@ class TaskController extends Controller
     }
 
     /**
+     *  タスク作成フォーム
      *  フォルダIDを取得するためのコントローラー
      *  GET /folders/{id}/tasks/create
-     *  @param int $id
+     *  @param Folder $folder
      *  @return \Illuminate\View\View
      */
-    public function showCreateForm(int $id)
+    public function showCreateForm(Folder $folder)
     {
         // createテンプレートにフォルダーIDを渡した結果を返す
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
         // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
         return view('tasks/create', [
-            'folder_id' => $id
+            'folder' => $folder->id,
         ]);
     }
 
     /**
+     *  タスク作成
      *  タスクを新規作成してDBに書き込む処理のコントローラー
      *  GET /folders/{id}/tasks/create
-     *  @param int $id
+     *  @param Folder $folder
      *  @param CreateTask $request
-     *  @return \Illuminate\View\View
+     *  @return \Illuminate\Http\RedirectResponse
      */
-    public function create(int $id, CreateTask $request)
+    public function create(Folder $folder, CreateTask $request)
     {
-        // ユーザーによって選択されたフォルダを取得する
-        // find()：一行分のデータを取得する関数
-        $current_folder = Folder::find($id);
-
         /* 新規作成のタスク（タイトル）をDBに書き込む処理 */
         // タスクモデルのインスタンスを作成する
         $task = new Task();
@@ -75,8 +74,8 @@ class TaskController extends Controller
         $task->title = $request->title;
         // 期限に入力値を代入する
         $task->due_date = $request->due_date;
-        // $current_folderに紐づくタスクを生成する（インスタンスの状態をデータベースに書き込む）
-        $current_folder->tasks()->save($task);
+        // $folderに紐づくタスクを生成する（インスタンスの状態をデータベースに書き込む）
+        $folder->tasks()->save($task);
 
         /* 上記の処理実行後のリダイレクト */
         // リダイレクト：別URLへの転送（リクエストされたURLとは別のURLに直ちに再リクエストさせます）
@@ -85,23 +84,20 @@ class TaskController extends Controller
         // redirect():リダイレクトを実施する関数
         // route():ルートPathを指定する関数
         return redirect()->route('tasks.index', [
-            'id' => $current_folder->id,
+            'folder' => $folder->id,
         ]);
     }
 
     /**
+     *  タスク編集フォーム
      *  タスクIDを取得するためのコントローラー
      *  GET /folders/{id}/tasks/{task_id}/edit
-     *  @param int $id
-     *  @param int $task_id
+     *  @param Folder $folder
+     *  @param Task $task
      *  @return \Illuminate\View\View
      */
-    public function showEditForm(int $id, int $task_id)
+    public function showEditForm(Folder $folder, Task $task)
     {
-        // ユーザーによって選択されたタスクを取得する
-        // find()：一行分のデータを取得する関数
-        $task = Task::find($task_id);
-
         // createテンプレートにフォルダーIDを渡した結果を返す
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
         // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
@@ -111,19 +107,16 @@ class TaskController extends Controller
     }
 
     /**
+     *  タスク編集
      *  タスクを編集（更新）してDBに書き込む処理のコントローラー
      *  GET /folders/{id}/tasks/{task_id}/edit
-     *  @param int $id
-     *  @param int $task_id
+     *  @param Folder $folder
+     *  @param Task $task
      *  @param EditTask $request
-     *  @return string
+     *  @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(int $id, int $task_id, EditTask $request)
+    public function edit(Folder $folder, Task $task, EditTask $request)
     {
-        // ユーザーによって選択されたタスクを取得する
-        // find()：一行分のデータを取得する関数
-        $task = Task::find($task_id);
-
         /* 編集（更新）のタスクをDBに上書きする処理 */
         // タイトルに入力値を代入する
         $task->title = $request->title;
@@ -141,7 +134,7 @@ class TaskController extends Controller
         // redirect():リダイレクトを実施する関数
         // route():ルートPathを指定する関数
         return redirect()->route('tasks.index', [
-            'id' => $task->folder_id,
+            'folder' => $task->folder_id,
         ]);
     }
 }
