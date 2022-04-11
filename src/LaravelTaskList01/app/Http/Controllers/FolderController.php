@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class FolderController extends Controller
 {
     /**
+     *  フォルダ作成フォーム
      *  Folder新規作成画面を表示するコントローラー
      *  @return string
      */
@@ -21,11 +22,13 @@ class FolderController extends Controller
     }
 
     /**
+     *  フォルダ作成
      *  Folderを新規作成してDBに書き込む処理のコントローラー
+     *  @param Folder $folder
      *  @param CreateFolder $request
-     *  @return string
+     *  @return \Illuminate\Http\RedirectResponse
      */
-    public function create(CreateFolder $request)
+    public function create(Folder $folder, CreateFolder $request)
     {
         /* 新規作成のフォルダー名（タイトル）をDBに書き込む処理 */
         // フォルダモデルのインスタンスを作成する
@@ -42,7 +45,7 @@ class FolderController extends Controller
         // redirect():リダイレクトを実施する関数
         // route():ルートPathを指定する関数
         return redirect()->route('tasks.index', [
-            'id' => $folder->id,
+            'folder' => $folder->id,
         ]);
     }
 }
