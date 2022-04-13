@@ -98,6 +98,9 @@ class TaskController extends Controller
      */
     public function showEditForm(Folder $folder, Task $task)
     {
+        // フォルダーとタスクのリレーション（関連性）をチェックする
+        $this->checkRelation($folder, $task);
+
         // createテンプレートにフォルダーIDを渡した結果を返す
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
         // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
@@ -118,6 +121,9 @@ class TaskController extends Controller
     public function edit(Folder $folder, Task $task, EditTask $request)
     {
         /* 編集（更新）のタスクをDBに上書きする処理 */
+        // フォルダーとタスクのリレーション（関連性）をチェックする
+        $this->checkRelation($folder, $task);
+
         // タイトルに入力値を代入する
         $task->title = $request->title;
         // 状態に入力値を代入する
@@ -136,5 +142,23 @@ class TaskController extends Controller
         return redirect()->route('tasks.index', [
             'folder' => $task->folder_id,
         ]);
+    }
+
+    /**
+     *  フォルダとタスクの関連性チェック
+     *  フォルダとタスクの関連性があるか調べるコントローラー
+     *  機能：リレーション（関連性）がなければ処理を中断して404エラー処理をする
+     *  用途：フォルダとタスクの関連性チェックとエラー処理
+     *  @param Folder $folder
+     *  @param Task $task
+     */
+    private function checkRelation(Folder $folder, Task $task)
+    {
+        // フォルダーインスタンスのIDとタスクインスタンスのフォルダーIDが一致しなければif文を実行する
+        // folder_idはDBの外部キーの参照元にfoldersテーブルのidを指定していますので、同じユーザーなら本来一致するはずです
+        if ($folder->id !== $task->folder_id) {
+            // 処理を中断して404エラーを実施する
+            abort(404);
+        }
     }
 }
