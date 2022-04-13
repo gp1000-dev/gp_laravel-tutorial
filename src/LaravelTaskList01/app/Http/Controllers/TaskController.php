@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task;
 use App\Models\Folder;
+use App\Models\Task;
 use App\Http\Requests\CreateTask;
 use App\Http\Requests\EditTask;
 use Illuminate\Support\Facades\Auth;
@@ -36,13 +36,13 @@ class TaskController extends Controller
             // ユーザーによって選択された"$folder"に$idの値を代入する
             'current_folder_id' => $folder->id,
             // 'tasks'に$tasksを代入する
-            'tasks' => $tasks
+            'tasks' => $tasks,
         ]);
     }
 
     /**
      *  タスク作成フォーム
-     *  フォルダIDを取得するためのコントローラー
+     *  フォルダIDを取得してTask新規作成画面を表示するコントローラー
      *  GET /folders/{id}/tasks/create
      *  @param Folder $folder
      *  @return \Illuminate\View\View
@@ -53,7 +53,7 @@ class TaskController extends Controller
         // view('遷移先のbladeファイル名', [連想配列：渡したい変数についての情報]);
         // 連想配列：['キー（テンプレート側で参照する際の変数名）' => '渡したい変数']
         return view('tasks/create', [
-            'folder' => $folder->id,
+            'folder_id' => $folder->id,
         ]);
     }
 

@@ -36,7 +36,7 @@
                         <!-- フォルダ名を選択表示（水色）にする
                         *    $current_folder_id つまり閲覧されているフォルダの ID と ID 値が合致する場合のみ 'active' という HTML クラスを出力する（下記の通りに差し替え）
                         -->
-                        <a href="{{ route('tasks.index', ['id' => $folder->id]) }}" class="list-group-item {{ $current_folder_id === $folder->id ? 'active' : '' }}">
+                        <a href="{{ route('tasks.index', ['folder' => $folder->id]) }}" class="list-group-item {{ $current_folder_id === $folder->id ? 'active' : '' }}">
                             <!-- フォルダのタイトルを表示する -->
                             {{ $folder->title }}
                         </a>
@@ -50,7 +50,7 @@
                     <div class="panel-body">
                         <div class="text-right">
                         <!-- タスクを追加する のリンクを変更する -->
-                        <a href="{{ route('tasks.create', ['id' => $current_folder_id]) }}" class="btn btn-default btn-block">
+                        <a href="{{ route('tasks.create', ['folder' => $current_folder_id]) }}" class="btn btn-default btn-block">
                             タスクを追加する
                         </a>
                         </div>
@@ -82,7 +82,7 @@
                                 <!-- タスクの期限を表示する -->
                                 <td>{{ $task->formatted_due_date }}</td>
                                 <!-- 編集のリンクを表示する -->
-                                <td><a href="{{ route('tasks.edit', ['id' => $task->folder_id, 'task_id' => $task->id]) }}">編集</a></td>
+                                <td><a href="{{ route('tasks.edit', ['folder' => $task->folder_id, 'task' => $task->id]) }}">編集</a></td>
                             </tr>
                             @endforeach
                         </tbody>

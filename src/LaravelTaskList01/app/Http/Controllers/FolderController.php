@@ -12,7 +12,7 @@ class FolderController extends Controller
     /**
      *  フォルダ作成フォーム
      *  Folder新規作成画面を表示するコントローラー
-     *  @return string
+     *  @return \Illuminate\View\View
      */
     public function showCreateForm()
     {

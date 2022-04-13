@@ -37,7 +37,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="{{ route('tasks.create', ['id' => $folder_id]) }}" method="POST">
+                    <form action="{{ route('tasks.create', ['folder' => $folder_id]) }}" method="POST">
                     <!-- セキュリティ対策：@csrf は、CSRFトークンを含んだ input 要素を出力します -->
                     @csrf
                         <div class="form-group">
