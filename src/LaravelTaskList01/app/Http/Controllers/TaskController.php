@@ -20,14 +20,6 @@ class TaskController extends Controller
      */
     public function index(Folder $folder)
     {
-        // 権限がないコンテンツを403エラーで返す
-        // ログインユーザーの ID とフォルダの user_id カラムの値が一致しない場合にif文を実行する
-        if (Auth::user()->id !== $folder->user_id) {
-            // プログラムの実行を中断して403エラーを返す
-            // abort()：プログラムの実行を中断する
-            abort(403);
-        }
-
         // （ログイン済み）ユーザーのフォルダを取得する
         $folders = auth()->user()->folders()->get();
 

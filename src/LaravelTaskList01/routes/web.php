@@ -33,20 +33,27 @@ Route::get('/hello', [HelloController::class,"index"]);
 Route::group(['middleware' => 'auth'], function() {
     /* home page */
     Route::get('/', [HomeController::class,"index"])->name('home');
-    /* index page */
-    // {id}から{folder}に変更する
-    Route::get("/folders/{folder}/tasks", [TaskController::class,"index"])->name("tasks.index");
+
     /* folder new create pages */
     Route::get('/folders/create', [FolderController::class,"showCreateForm"])->name('folders.create');
     Route::post('/folders/create', [FolderController::class,"create"]);
-    /* tasks new create pages */
-    // {id}から{folder}に変更する
-    Route::get('/folders/{folder}/tasks/create', [TaskController::class,"showCreateForm"])->name('tasks.create');
-    Route::post('/folders/{folder}/tasks/create', [TaskController::class,"create"]);
-    /* tasks new edit pages */
-    // {id}から{folder}に、{task_id}から{task}に変更する
-    Route::get('/folders/{folder}/tasks/{task}/edit', [TaskController::class,"showEditForm"])->name('tasks.edit');
-    Route::post('/folders/{folder}/tasks/{task}/edit', [TaskController::class,"edit"]);
+
+    /*
+    * ポリシーをミドルウェアを介して使用する
+    * 機能：ルートグループによる一括適用とミドルウェアによるポリシーの呼び出し
+    * 用途：Folderモデル(FolderPolicyポリシー)で定義されたviewメソッドのポリシーを使用する
+    * 'can:第1引数,第2引数':'can:認可処理の種類,ポリシーに渡すルートパラメーター（URL の変数部分）'
+    */
+    Route::group(['middleware' => 'can:view,folder'], function() {
+        /* index page */
+        Route::get("/folders/{folder}/tasks", [TaskController::class,"index"])->name("tasks.index");
+        /* tasks new create pages */
+        Route::get('/folders/{folder}/tasks/create', [TaskController::class,"showCreateForm"])->name('tasks.create');
+        Route::post('/folders/{folder}/tasks/create', [TaskController::class,"create"]);
+        /* tasks new edit pages */
+        Route::get('/folders/{folder}/tasks/{task}/edit', [TaskController::class,"showEditForm"])->name('tasks.edit');
+        Route::post('/folders/{folder}/tasks/{task}/edit', [TaskController::class,"edit"]);
+    });
 });
 
 /* certification pages （会員登録・ログイン・ログアウト・パスワード再設定など） */
