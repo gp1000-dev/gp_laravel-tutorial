@@ -87,7 +87,7 @@
                                 </td>
                                 <td>
                                     <!--タスク削除の処理-->
-                                    <form action="{{route('tasks.destroy', ['folder' => $task->folder_id, 'task' => $task->id]) }}" method="POST">
+                                    <form action="{{route('tasks.destroy', ['folder' => $task->folder_id, 'task' => $task->id]) }}" method="POST" style="width:0rem">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">削除</button>
                                     </form>
