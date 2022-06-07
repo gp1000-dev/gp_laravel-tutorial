@@ -84,6 +84,8 @@
                                 <!-- 編集のリンクを表示する -->
                                 <td>
                                     <a href="{{ route('tasks.edit', ['folder' => $task->folder_id, 'task' => $task->id]) }}">編集</a>
+                                </td>
+                                <td>
                                     <!--タスク削除の処理-->
                                     <form action="{{route('tasks.destroy', ['folder' => $task->folder_id, 'task' => $task->id]) }}" method="POST">
                                         @csrf
