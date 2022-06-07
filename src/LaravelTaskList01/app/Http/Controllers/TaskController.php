@@ -144,6 +144,24 @@ class TaskController extends Controller
         ]);
     }
 
+    /*
+    タスク削除
+    タスクを削除してDBに書き込む処理のコントローラー
+     */
+    public function destroy(Folder $folder,Task $task)
+    {
+        // フォルダーとタスクのリレーション（関連性）をチェックする
+        $this->checkRelation($folder,$task);
+        //一致するidが見つかるかどうか確認
+        $delete_task = Task::findOrFail($task->id);
+        //タスクを削除する処理
+        $delete_task->delete();
+        //タスク一覧画面へのリダイレクト
+        return redirect()->route('tasks.index', [
+            'folder' => $task->folder_id,
+        ]);
+    }
+
     /**
      *  フォルダとタスクの関連性チェック
      *  フォルダとタスクの関連性があるか調べるコントローラー
