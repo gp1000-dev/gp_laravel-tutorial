@@ -82,7 +82,14 @@
                                 <!-- タスクの期限を表示する -->
                                 <td>{{ $task->formatted_due_date }}</td>
                                 <!-- 編集のリンクを表示する -->
-                                <td><a href="{{ route('tasks.edit', ['folder' => $task->folder_id, 'task' => $task->id]) }}">編集</a></td>
+                                <td>
+                                    <a href="{{ route('tasks.edit', ['folder' => $task->folder_id, 'task' => $task->id]) }}">編集</a>
+                                    <!--タスク削除の処理-->
+                                    <form action="{{route('tasks.destroy', ['folder' => $task->folder_id, 'task' => $task->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
