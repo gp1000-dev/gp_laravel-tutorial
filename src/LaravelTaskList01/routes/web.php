@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function() {
         /* tasks new edit pages */
         Route::get('/folders/{folder}/tasks/{task}/edit', [TaskController::class,"showEditForm"])->name('tasks.edit');
         Route::post('/folders/{folder}/tasks/{task}/edit', [TaskController::class,"edit"]);
+        /* tasks dekete pages */
+        Route::post('/folders/{folder}/tasks/{task}', [TaskController::class,"destroy"])->name('tasks.destroy');
     });
 });
 
