@@ -48,4 +48,9 @@ class FolderController extends Controller
             'folder' => $folder->id,
         ]);
     }
+
+    public function destroy(Folder $folder){
+        $folder->delete();
+        return redirect("/");
+    }
 }
