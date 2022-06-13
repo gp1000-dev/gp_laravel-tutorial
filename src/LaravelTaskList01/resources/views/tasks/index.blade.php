@@ -39,6 +39,10 @@
                         <a href="{{ route('tasks.index', ['folder' => $folder->id]) }}" class="list-group-item {{ $current_folder_id === $folder->id ? 'active' : '' }}">
                             <!-- フォルダのタイトルを表示する -->
                             {{ $folder->title }}
+                            <form action="{{route('folders.destroy', ['folder' => $folder->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">削除</button>
+                            </form>
                         </a>
                         @endforeach
                     </div>
