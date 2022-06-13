@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function() {
     /* folder new create pages */
     Route::get('/folders/create', [FolderController::class,"showCreateForm"])->name('folders.create');
     Route::post('/folders/create', [FolderController::class,"create"]);
+    Route::post('/folders/{folder}', [FolderController::class,"destroy"])->name("folders.destroy");
 
     /*
     * ポリシーをミドルウェアを介して使用する
